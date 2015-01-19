@@ -7,6 +7,10 @@ class MainWindow(QtGui.QWidget):
     def __init__(self):
         super(MainWindow, self).__init__()
         self.initMW()
+        self.Armies = []
+        self.Divisions = []
+        self.Units = []
+        self.Generals = []
 
     def initMW(self):
         self.setWindowTitle(u'Создание армии')
@@ -58,7 +62,6 @@ class MainWindow(QtGui.QWidget):
         self.ArmyCreateWindow.FinishButton = QtGui.QPushButton(u'Сохранить армию')
         ArmyCreateWindowLayout.addWidget(self.ArmyCreateWindow.FinishButton, 4, 0)
         self.ArmyCreateWindow.show()
-
         QtCore.QObject.connect(self.ArmyCreateWindow.FinishButton, QtCore.SIGNAL('clicked()'), self.addArmyFinish)
 
     def addArmyFinish(self):
@@ -86,8 +89,6 @@ class MainWindow(QtGui.QWidget):
         self.DivisionCreateWindow.show()
         QtCore.QObject.connect(self.DivisionCreateWindow.FinishButton, QtCore.SIGNAL('clicked()'), self.addDivisionFinish)
 
-        print "Division"
-
     def addDivisionFinish(self):
         Army = self.TreeView.selectedItems()[0]
         NewDivision = QtGui.QTreeWidgetItem()
@@ -99,7 +100,26 @@ class MainWindow(QtGui.QWidget):
         print "Unit"
 
     def addGeneral(self):
-        print "General"
+        self.GeneralCreateWindow = QtGui.QWidget()
+        GeneralCreateWindowLayout = QtGui.QGridLayout()
+        self.GeneralCreateWindow.setLayout(GeneralCreateWindowLayout)
+        NameLabel = QtGui.QLabel(u"Имя генерала")
+        self.GeneralCreateWindow.NameText = QtGui.QLineEdit()
+        GeneralCreateWindowLayout.addWidget(NameLabel, 0, 0)
+        GeneralCreateWindowLayout.addWidget(self.GeneralCreateWindow.NameText, 1, 0)
+        LeadershipLabel = QtGui.QLabel(u"Лидерство")
+        self.GeneralCreateWindow.LeadershipPicker = QtGui.QComboBox()
+        GeneralCreateWindowLayout.addWidget(LeadershipLabel, 2, 0)
+        GeneralCreateWindowLayout.addWidget(self.GeneralCreateWindow.LeadershipPicker, 3, 0)
+        
+        
+        self.GeneralCreateWindow.FinishButton = QtGui.QPushButton(u"Сохранить командующего")
+        GeneralCreateWindowLayout.addWidget(self.GeneralCreateWindow.FinishButton, 4, 0)
+        self.GeneralCreateWindow.show()
+        QtCore.QObject.connect(self.GeneralCreateWindow.FinishButton, QtCore.SIGNAL('clicked()'), self.addGeneralFinish)
+        
+    def addGeneralFinish():
+        pass
 
     def deleteSelected(self):
         root = self.TreeView.invisibleRootItem()
